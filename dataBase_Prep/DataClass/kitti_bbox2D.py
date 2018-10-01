@@ -48,6 +48,8 @@ class Kitti_bbox2D(object):
         self.rotation_y = rotation_y
         self.score = score
 
+
+
     def __lt__(self, value):
         return object.__lt__(self, value)
 
@@ -126,6 +128,7 @@ class Kitti_bbox2D(object):
 
     def __format__(self, format_spec):
         return object.__format__(self, format_spec)
+
 
         
         

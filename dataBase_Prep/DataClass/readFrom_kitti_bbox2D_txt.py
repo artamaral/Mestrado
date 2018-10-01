@@ -9,21 +9,41 @@ import sys
 import kitti_bbox2D
 
 
-
 class readTXT():
 
     def readTXT_kittibbox2D(self,path2File):
         
+
         objRead = kitti_bbox2D.Kitti_bbox2D
         with open(path2File, mode='r') as csv_file:
             
-            csv_reader = csv.DictReader(csv_file, delimiter=' ')
-            print(csv_reader)
+            csv_reader = csv.reader(csv_file, delimiter=" ")
             
-            for row in csv_reader:
+            for line in csv_reader:
+            
+                rownb = 0
+                for row in csv_reader:
                 
-                print(row)
+                #print(row, rownb)
                 
+                    for e in row:
+                        print(e)
+                
+                        colnb = 0
+                        for col in csv_reader:
+                    
+                    #print(col)
+                            if colnb == 0:  
+                                objRead.type = col
+                        #print(objRead.type, colnb)
+
+                    colnb += 1                                  
+
+                    #print(objRead.type, colnb)
+                        
+                #objRead.type = row
+    
+                '''
                 objRead.type = row[0]
                 objRead.truncated = row[1] 
                 objRead.occluded = row[2]
@@ -33,13 +53,15 @@ class readTXT():
                 objRead.location = [row[11],row[12],row[13]]
                 objRead.rotation_y = row[14]
                 objRead.score = row[15]
-                
-            print(objRead)                    
-            return 0
+                '''
+            
+            rownb += 1    
+            #print(objRead.type)                    
+        return 0
     
     def path2read(self):    
     
-        data_folder = Path("C:/Users/aoliveir/eclipse-workspace/dataBase_Prep/source_Data")
+        data_folder = Path("/Users/artamaral/Google Drive/Programação/Java/Mestrado/dataBase_Prep/source_Data/")
 
         path2File = data_folder / "000001.txt"
         print("File to open ",path2File)
