@@ -25,8 +25,11 @@ class readTXT():
         #/Users/artamaral/darknet/kitti
         #/Users/artamaral/Google Drive/Programação/Java/Mestrado/dataBase_Prep/source_Data/
         #/Users/artamaral/Google Drive/Programação/Java/Mestrado/dataBase_Prep/data_object_image_2/training
-        data_folder = Path("/Users/artamaral/darknet/kitti/source_Data")
-        image_folder = Path("/Users/artamaral/Google Drive/Programação/Java/Mestrado/dataBase_Prep/data_object_image_2/training/image_2")
+        #/Users/artamaral/darknet/kitti/source_Data"
+        #/Users/artamaral/Google Drive/Programação/Java/Mestrado/dataBase_Prep/data_object_image_2/training/image_2"
+
+        data_folder = Path("C:/Users/aoliveir/git/Mestrado/dataBase_Prep/source_Data")
+        image_folder = Path("C:\Users\aoliveir\git\Mestrado\dataBase_Prep\image_data")
         
         path2File = data_folder / "000000.txt"
         path2image = image_folder / "000000.png"
