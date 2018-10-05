@@ -6,7 +6,6 @@ Created on 5 de out de 2018
 from pathlib import Path
 import csv 
 import sys
-import kitti_bbox2D
 import os
 from builtins import str
 
@@ -148,6 +147,7 @@ class CUlane_readTXT():
             print(polyline)
             csv_file.close()
             break
+        
             
                         
         return 0
