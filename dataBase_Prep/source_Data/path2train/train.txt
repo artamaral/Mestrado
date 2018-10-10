@@ -3,3 +3,8 @@ C:\Users\aoliveir\git\Mestrado\dataBase_Prep\image_data\000001.png
 C:\Users\aoliveir\git\Mestrado\dataBase_Prep\image_data\000002.png
 C:\Users\aoliveir\git\Mestrado\dataBase_Prep\image_data\000003.png
 C:\Users\aoliveir\git\Mestrado\dataBase_Prep\image_data\000004.png
+C:\Users\aoliveir\git\Mestrado\dataBase_Prep\image_data\000000.png
+C:\Users\aoliveir\git\Mestrado\dataBase_Prep\image_data\000001.png
+C:\Users\aoliveir\git\Mestrado\dataBase_Prep\image_data\000002.png
+C:\Users\aoliveir\git\Mestrado\dataBase_Prep\image_data\000003.png
+C:\Users\aoliveir\git\Mestrado\dataBase_Prep\image_data\000004.png
