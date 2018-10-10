@@ -71,8 +71,7 @@ class readJSON():
         
         image_folder = Path("C:/Users/aoliveir/git/Mestrado/dataBase_Prep/image_data")   
         path2image = image_folder / imgFileName
-        img = cv2.imread(path2image,1)
-             
+        img = cv2.imread(path2image,1)     
         height, width, channels = img.shape
     
         print(height, width, channels) 
