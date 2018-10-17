@@ -161,6 +161,7 @@ class readTXT():
                       
         return 0  
     
+    #write all file to be trained names in a txt file
     def writeTXT_train(self,list2train,path2image):
         
         
