@@ -37,7 +37,7 @@ class readJSON():
             #read JSON file
             annotations = json.load(read_file)
             
-                       
+            #going deep on json           
             for annotation in annotations:
                 
                 #get img data
@@ -47,15 +47,18 @@ class readJSON():
                 path2image = image_folder / annotation["name"]
                 dataJSON.writeTXT_train(path2image)
                 
-                                
+                #deeper on json                
                 for annotation_labels in annotation["labels"]:
                     
                     #print(annotation["name"] + ',' + str(annotation["labels"]))
                     
+                    #if the object does not have a box2d annotation...avoid error of null object 
                     if 'box2d' not in annotation_labels:
-                    
+                        
+                        #get object annotation from poly2d since it does not have box2d info 
                         for polys in annotation_labels["poly2d"]:
                             
+                            #clear the aux variables
                             x = 0
                             y = 0
                             x1 = 0
@@ -63,17 +66,26 @@ class readJSON():
                             x2 = 0
                             y2 = 0    
                             
+                            #get the poly2d array from json
                             vertices.append(polys["vertices"])
                             #print(polys["vertices"])
                             
+                            #for each vertice get list  of point
                             for points in vertices:
                                 
+                                #from a list of points get each coordinates
                                 for coordenates in points:
                                                             
                                     x = coordenates[0]
                                     y = coordenates[1]
                                     #print("x:" + str(x) +" y:" + str(y))
                                     
+                                    '''
+                                    Since polylines can have multiples vertices
+                                    and assuming that the object is inside of it
+                                    get the  most top left and bottom right coordinates
+                                    to inscribe a rectangle
+                                    '''
                                     if x <= x1 or x1 == 0 :
                                         x1 = x
                                     
@@ -85,27 +97,25 @@ class readJSON():
                                     
                                     if y <= y2 or y2 == 0 :
                                         y2 = y        
-                                        
-                            #print("x1:" + str(x1) +" y1:" + str(y1))
-                            #print("x2:" + str(x2) +" y2:" + str(y2))     
-                            
+                                                       
                             print(str(annotation["name"])+',',str(annotation_labels["category"])+',', str(x1) +',', str(x2)  + ',', str(y1)  + ',' + str(y2) ) 
                             vertices.clear()
-                            
+                            #if we find a polyline get it break to check the next 'label'
+                           
                             break
-                                                                       
+                        #if we have a box2d go on...                                               
                         continue
+                    
+                    #alse get info from box2d
                     else:
+                        
                         type = annotation_labels["category"]
                         x1 = annotation_labels["box2d"]['x1']
                         y1 = annotation_labels["box2d"]['y1']
                         x2 = annotation_labels["box2d"]['x2']
                         y2 = annotation_labels["box2d"]['y2']
-                        #print(str(annotation["name"])+',',str(annotation_labels["category"])+',', str(x1) +',', str(x2)  + ',', str(y1)  + ',' + str(y2) ) 
-                                                                               
-                    #print(annotation["name"]+',',annotation_labels["category"]+','+ annotation_labels["poly2d"]['vertices'])
-                    #print(str(annotation["name"])+',',str(annotation["labels"]) + str(x1) +',', str(x2)  + ',', str(y1)  + ',' + str(y2) )                      
                     
+                    #prepare variable to write darknet std file    
                     img_Data = annotation_labels["category"] +" ",annotation_labels["box2d"]['x1'],annotation_labels["box2d"]['y1'],annotation_labels["box2d"]['x2'],annotation_labels["box2d"]['y2']
                     
                     path2train = train_folder / annotation["name"]
