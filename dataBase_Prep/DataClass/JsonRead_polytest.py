@@ -30,7 +30,11 @@ class readJSON():
         y1 = ""
         x2 = ""
         y2 = ""
-        vertices = []    
+        vertices = []
+        obj_Xcenter = 0
+        obj_Ycenter = 0
+        obj_height = 0
+        obj_width = 0   
         
         with open(path2File, mode='r') as read_file:
             
@@ -86,19 +90,24 @@ class readJSON():
                                     get the  most top left and bottom right coordinates
                                     to inscribe a rectangle
                                     '''
-                                    if x <= x1 or x1 == 0 :
+                                    if x <= x1 or x1 == 0:
                                         x1 = x
                                     
-                                    if x > x2:
+                                    if x > x2 or x2 == 0:
                                         x2 = x
                                     
-                                    if y > y1:
+                                    if y > y1 or y1 == 0:
                                         y1 = y
                                     
-                                    if y <= y2 or y2 == 0 :
+                                    if y <= y2 or y2 == 0:
                                         y2 = y        
                                                        
-                            print(str(annotation["name"])+',',str(annotation_labels["category"])+',', str(x1) +',', str(x2)  + ',', str(y1)  + ',' + str(y2) ) 
+                            obj_Xcenter = (x1+x2)/2
+                            obj_Ycenter = (y1+y2)/2
+                            obj_width = x2 - x1
+                            obj_height = y1 - y2
+                            print(x1,x2,y1,y2)
+                            print(str(annotation["name"])+',',str(annotation_labels["category"])+',', str(obj_Xcenter) + ',' ,str(obj_Ycenter)+ ',' ,str(obj_width)+ ',' ,str(obj_height)) 
                             vertices.clear()
                             #if we find a polyline get it break to check the next 'label'
                            
@@ -111,10 +120,18 @@ class readJSON():
                         
                         type = annotation_labels["category"]
                         x1 = annotation_labels["box2d"]['x1']
-                        y1 = annotation_labels["box2d"]['y1']
+                        y1 = annotation_labels["box2d"]['y2']
                         x2 = annotation_labels["box2d"]['x2']
-                        y2 = annotation_labels["box2d"]['y2']
-                    
+                        y2 = annotation_labels["box2d"]['y1']
+                        
+                        obj_Xcenter = (x1+x2)/2
+                        obj_Ycenter = (y1+y2)/2
+                        obj_width = x2 - x1
+                        obj_height = y1 - y2
+                        
+                        print(x1,x2,y1,y2)
+                        print(str(annotation["name"])+',',str(annotation_labels["category"])+',', str(obj_Xcenter) + ',' ,str(obj_Ycenter)+ ',' ,str(obj_width)+ ',' ,str(obj_height)) 
+                   
                     #prepare variable to write darknet std file    
                     img_Data = annotation_labels["category"] +" ",annotation_labels["box2d"]['x1'],annotation_labels["box2d"]['y1'],annotation_labels["box2d"]['x2'],annotation_labels["box2d"]['y2']
                     
