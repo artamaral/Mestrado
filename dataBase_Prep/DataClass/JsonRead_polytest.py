@@ -106,8 +106,10 @@ class readJSON():
                             obj_Ycenter = (y1+y2)/2
                             obj_width = x2 - x1
                             obj_height = y1 - y2
-                            print(x1,x2,y1,y2)
-                            print(str(annotation["name"])+',',str(annotation_labels["category"])+',', str(obj_Xcenter) + ',' ,str(obj_Ycenter)+ ',' ,str(obj_width)+ ',' ,str(obj_height)) 
+                            #print(x1,x2,y1,y2)
+                            #print(str(annotation["name"])+',',str(annotation_labels["category"])+',', str(obj_Xcenter) + ',' ,str(obj_Ycenter)+ ',' ,str(obj_width)+ ',' ,str(obj_height)) 
+                            img_Data = annotation["name"]+' '+str(annotation_labels["category"])+' '+ str(obj_Xcenter) + ' ' +str(obj_Ycenter)+ ' ' +str(obj_width)+ ' ' +str(obj_height)
+                            dataJSON.writeTXT_bddbox2D(path2train,img_Data)
                             vertices.clear()
                             #if we find a polyline get it break to check the next 'label'
                            
@@ -133,11 +135,11 @@ class readJSON():
                         print(str(annotation["name"])+',',str(annotation_labels["category"])+',', str(obj_Xcenter) + ',' ,str(obj_Ycenter)+ ',' ,str(obj_width)+ ',' ,str(obj_height)) 
                    
                     #prepare variable to write darknet std file    
-                    img_Data = annotation_labels["category"] +" ",annotation_labels["box2d"]['x1'],annotation_labels["box2d"]['y1'],annotation_labels["box2d"]['x2'],annotation_labels["box2d"]['y2']
+                    img_Data = annotation["name"]+' '+str(annotation_labels["category"])+' '+ str(obj_Xcenter) + ' ' +str(obj_Ycenter)+ ' ' +str(obj_width)+ ' ' +str(obj_height)
                     
                     path2train = train_folder / annotation["name"]
                     
-                                        #dataJSON.writeTXT_bddbox2D(path2train,img_Data)
+                    dataJSON.writeTXT_bddbox2D(path2train,img_Data)
                        
         return 0            
                        
@@ -169,11 +171,17 @@ class readJSON():
         return 0
     
     def writeTXT_bddbox2D(self,path2File,img_Data):
+        
+        train_folder = Path("C:/Users/aoliveir/git/Mestrado/dataBase_Prep/source_Data/path2train")
+        head, tail = os.path.split(path2File)
+        tail = str(tail[:17])
+        fileName =  str(tail) + ".txt"
+        path2File = train_folder / fileName
            
-        with open(path2File, mode='w') as filewriter:
+        with open(path2File, mode='a') as filewriter:
             
             #writer = writer(filewriter, delimiter=' ')
-            filewriter.write(img_Data +"\n")
+            filewriter.write(str(img_Data) +"\n")
             
             filewriter.close()
                       
