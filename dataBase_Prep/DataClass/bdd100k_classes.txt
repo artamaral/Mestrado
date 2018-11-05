@@ -1,0 +1,18 @@
+bus
+car
+motor
+person
+rider
+traffic light
+traffic sign
+train
+truck
+crosswalk
+double other
+doublevwhite
+double yellow
+road curb
+single other
+single white
+single yellow
+bike
